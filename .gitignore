@@ -1,0 +1,4 @@
+.DS_Store
+# raw photo drops; the site uses processed copies in assets/
+/WhatsApp Image *.jpeg
+node_modules/
