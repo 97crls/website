@@ -179,69 +179,57 @@ nav.main a.cta:hover { background: var(--accent-deep); }
 .hero h1 .accent { color: var(--accent-text); display: block; }
 .hero .lede { font-size: clamp(1.05rem, 1.6vw, 1.2rem); }
 .hero-photo { position: relative; border-radius: var(--radius); overflow: hidden; aspect-ratio: 1024 / 700; background: var(--panel); }
-.hero-photo img { width: 100%; height: 100%; object-fit: cover; will-change: transform; }
-.hero-photo figcaption {
+.hero-photo > figcaption {
   position: absolute; left: 12px; bottom: 12px;
   background: rgba(11, 11, 13, 0.85); padding: 6px 10px; border-radius: 3px;
   font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.08em; color: var(--text);
 }
 
-/* ---------- photo dump (top of home) ----------
-   A sideways strip of photos, all the same height. Scrolls natively
-   (trackpad, touch, keyboard), by mouse drag, or with the arrow buttons. */
-.dump { padding: clamp(28px, 4vw, 44px) 0 clamp(8px, 2vw, 16px); }
-.dump-head { display: flex; justify-content: space-between; align-items: end; gap: 16px; margin-bottom: 18px; }
-.dump-head .label { margin-bottom: 4px; }
-.dump-hint { font-family: var(--font-mono); font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; }
-.dump-controls { display: flex; align-items: center; gap: 8px; }
-.dump-count { font-family: var(--font-mono); font-size: 0.8rem; color: var(--muted); margin-right: 8px; letter-spacing: 0.08em; }
-.dump-count .now { color: var(--bone); }
-.dump-btn {
-  width: 44px; height: 44px; border-radius: 50%; border: 1px solid rgba(242, 239, 233, 0.25);
-  background: transparent; color: var(--bone); cursor: pointer; display: grid; place-items: center;
-  transition: background .3s var(--ease-out), border-color .3s, transform .3s var(--ease-out), opacity .3s;
-}
-.dump-btn svg { width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
-.dump-btn:hover { background: var(--accent); border-color: var(--accent); }
-.dump-btn:active { transform: scale(0.92); }
-.dump-btn:disabled { opacity: 0.3; cursor: default; background: transparent; border-color: rgba(242, 239, 233, 0.25); }
-
-/* the strip lines up with the page's content edge, then runs off the right side */
+/* ---------- photo dump (inside the hero photo frame) ----------
+   The hero's photo box holds the whole batch, one photo at a time.
+   Swipe/trackpad/keys scroll it natively, a mouse can drag it, and the
+   arrow buttons step through. */
 .dump-track {
-  --edge: max(var(--gutter), calc((100vw - var(--max-w)) / 2 + var(--gutter)));
-  display: flex; gap: 12px; overflow-x: auto; overflow-y: hidden;
-  padding: 0 var(--edge); scroll-padding: 0 var(--edge);
-  scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
-  scrollbar-width: none; cursor: grab; outline-offset: -2px;
+  position: relative; display: flex; width: 100%; height: 100%;
+  overflow-x: auto; overflow-y: hidden; scroll-snap-type: x mandatory; overscroll-behavior-x: contain;
+  scrollbar-width: none; cursor: grab; outline-offset: -3px;
 }
 .dump-track::-webkit-scrollbar { display: none; }
 .dump-track.dragging { scroll-snap-type: none; cursor: grabbing; user-select: none; }
 .dump-track.dragging .dump-item { pointer-events: none; }
-.dump-item {
-  position: relative; flex: 0 0 auto; height: clamp(300px, 56vh, 600px); margin: 0;
-  border-radius: var(--radius); overflow: hidden; background: var(--panel); scroll-snap-align: start;
-}
-.dump-item img { height: 100%; width: auto; max-width: none; object-fit: cover; transform: scale(1.08); will-change: transform; }
-.dump-logo { background: #0e0d1d; }
+.dump-item { position: relative; flex: 0 0 100%; height: 100%; margin: 0; overflow: hidden; scroll-snap-align: start; scroll-snap-stop: always; }
+.hero-photo .dump-item img { width: 100%; height: 100%; max-width: none; object-fit: cover; transform: scale(1.08); will-change: transform; }
+.dump-logo { background: #020114; }   /* matches the logo artwork edge */
+.hero-photo .dump-logo img { object-fit: contain; transform: none; }
 .dump-item figcaption {
-  position: absolute; left: 0; right: 0; bottom: 0; padding: 40px 16px 14px;
-  background: linear-gradient(transparent, rgba(0, 0, 0, 0.78));
-  color: #fff; font-size: 0.88rem; display: flex; gap: 10px; align-items: baseline;
-  transform: translateY(6px); opacity: 0.88; transition: transform .5s var(--ease-out), opacity .4s;
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 48px 14px 16px; padding-right: 170px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.75));
+  color: #fff; font-size: 0.86rem; display: flex; gap: 10px; align-items: baseline;
 }
 .dump-item figcaption span { font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-text); }
-.dump-item:hover figcaption { transform: none; opacity: 1; }
-.dump-progress { height: 2px; background: var(--line); margin-top: 18px; overflow: hidden; border-radius: 2px; }
-.dump-progress span { display: block; height: 100%; width: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
+
+.dump-controls {
+  position: absolute; right: 10px; bottom: 10px; z-index: 2; display: flex; align-items: center; gap: 6px;
+  padding: 4px 4px 4px 12px; border-radius: 999px;
+  background: rgba(11, 11, 13, 0.72); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(242, 239, 233, 0.14);
+}
+.dump-count { font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted); letter-spacing: 0.06em; margin-right: 4px; }
+.dump-count .now { color: var(--bone); }
+.dump-btn {
+  width: 36px; height: 36px; border-radius: 50%; border: 0; background: rgba(242, 239, 233, 0.08);
+  color: var(--bone); cursor: pointer; display: grid; place-items: center;
+  transition: background .3s var(--ease-out), transform .3s var(--ease-out), opacity .3s;
+}
+.dump-btn svg { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+.dump-btn:hover { background: var(--accent); }
+.dump-btn:active { transform: scale(0.92); }
+.dump-btn:disabled { opacity: 0.3; cursor: default; background: rgba(242, 239, 233, 0.08); }
+.dump-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 3px; z-index: 2; background: rgba(242, 239, 233, 0.12); }
+.dump-progress span { display: block; height: 100%; background: var(--accent); transform: scaleX(0); transform-origin: left; }
 
 @media (max-width: 600px) {
-  .dump-hint { display: none; }
-  .dump-count { display: none; }
-  /* uniform cards on phones, narrow enough that the next one peeks in */
-  .dump-item { height: auto; width: 78vw; aspect-ratio: 4 / 5; }
-  .dump-item img { width: 100%; height: 100%; }
-  .dump-logo img { object-fit: contain; }
-  .dump-track { gap: 8px; }
+  .dump-item figcaption { padding-right: 14px; padding-bottom: 58px; }
 }
 
 /* ---------- stats ---------- */
@@ -506,10 +494,8 @@ html:not(.anim) .assembly-count, html:not(.anim) .assembly-progress, html:not(.a
 
 /* hero photo: opens from a smaller frame while the image settles from a zoom */
 .anim .hero-photo { clip-path: inset(10% 10% 10% 10% round 6px); transition: clip-path 1.6s var(--ease-out) .25s; }
-.anim .hero-photo img { transform: scale(1.18); transition: transform 2.2s var(--ease-out) .25s; }
 .anim.loaded .hero-photo { clip-path: inset(0 0 0 0 round 6px); }
-.anim.loaded .hero-photo img { transform: scale(1.12); }
-.hero-photo figcaption { z-index: 1; }
+.hero-photo > figcaption { z-index: 1; }
 
 /* generic fade-up, staggered with --d */
 .anim [data-reveal] {

@@ -30,8 +30,8 @@
 
   var lenis = null;   // smooth scroller, created below unless reduced motion is on
 
-  /* ---------- photo dump (home) ----------
-     A sideways strip. Trackpad swipes, touch and arrow keys scroll it
+  /* ---------- photo dump (home hero frame) ----------
+     One photo at a time inside the hero frame. Trackpad swipes, touch and arrow keys scroll it
      natively; a mouse can drag it (with a little momentum); the round
      buttons step through it. Vertical wheel over the strip still scrolls
      the page, through Lenis so it keeps the same smooth feel. */
@@ -63,9 +63,10 @@
         // each photo drifts slightly against the scroll, like a window
         var mid = x + track.clientWidth / 2;
         items.forEach(function (it) {
+          if (it.classList.contains("dump-logo")) return;
           var img = it.firstElementChild;
           var c = it.offsetLeft + it.offsetWidth / 2;
-          var shift = Math.max(-1, Math.min(1, (c - mid) / track.clientWidth)) * -3;
+          var shift = Math.max(-1, Math.min(1, (c - mid) / track.clientWidth)) * -6;
           img.style.transform = "scale(1.08) translateX(" + shift.toFixed(2) + "%)";
         });
       }
@@ -81,9 +82,9 @@
     });
     updateDump();
 
-    // arrow buttons and keys step by roughly a screen; snap lines it up
+    // arrow buttons and keys step one photo
     var step = function (dir) {
-      track.scrollBy({ left: dir * track.clientWidth * 0.75, behavior: reduceMotion ? "auto" : "smooth" });
+      track.scrollBy({ left: dir * track.clientWidth, behavior: reduceMotion ? "auto" : "smooth" });
     };
     [prevBtn, nextBtn].forEach(function (b) {
       if (b) b.addEventListener("click", function () { step(+b.getAttribute("data-dir")); });
