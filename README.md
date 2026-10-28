@@ -46,8 +46,16 @@ so link previews show the photo.
 build step per scroll. The step text is the `<ol class="assembly-steps">` list in `index.html`.
 
 `robot.glb` comes from the team's Onshape export (`Full Robot.3mf`, 32M triangles). It was
-cut down to about 290k triangles and 430 KB so it runs on phones. Screws, nuts and
-washers are left out.
+cut down to about 365k triangles and 560 KB so it runs on phones. Screws, nuts and
+washers are left out. The simplifier never moves a surface more than 0.4 mm
+(`MAX_ERROR` in `tools/cad/budget.mjs`); allowing more makes thin plates fold
+through themselves and show up as triangle shards.
+
+Rendering: Three.js 0.169 with ambient occlusion (GTAO), 4x multisampling,
+Khronos PBR Neutral tone mapping and a soft shadow from the key light. The bumper
+fabric (the CAD's "Bumper soft part") gets a woven texture drawn in code
+(`fabricMaterial` in `js/assembly.js`), since the CAD only has a flat red. Browsers
+without WebGL2 skip the post-processing and draw directly.
 
 The build steps come from the CAD's own sub-assemblies:
 
