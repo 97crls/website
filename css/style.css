@@ -540,3 +540,60 @@ html:not(.anim) .assembly-count, html:not(.anim) .assembly-progress, html:not(.a
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition: none !important; }
 }
+
+/* ---------- name changes in the timeline ---------- */
+.row.rename .year { color: var(--bone); }
+.name-tag {
+  display: inline-block; font-family: var(--font-mono); font-size: 0.68rem; letter-spacing: 0.14em;
+  text-transform: uppercase; color: var(--bone); background: var(--accent); border-radius: 3px;
+  padding: 3px 7px; margin-bottom: 8px;
+}
+.row .names { font-family: var(--font-display); font-size: 1.15rem; color: var(--bone); }
+.row .names s { color: var(--muted); text-decoration-thickness: 1px; }
+
+/* ---------- by the numbers (about) ---------- */
+.numbers { display: grid; grid-template-columns: repeat(3, 1fr); border-top: 1px solid var(--line); border-left: 1px solid var(--line); }
+.numbers > div { padding: 22px 20px; border-right: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.numbers .n { font-family: var(--font-display); font-size: clamp(1.6rem, 3vw, 2.2rem); color: var(--bone); line-height: 1; font-variant-numeric: tabular-nums; }
+.numbers .l { font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-top: 10px; }
+@media (max-width: 600px) { .numbers { grid-template-columns: 1fr 1fr; } }
+
+/* ---------- archive gallery (about) ---------- */
+.archive { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.archive figure { position: relative; overflow: hidden; border-radius: 4px; background: var(--panel); aspect-ratio: 16 / 10; }
+.archive img { width: 100%; height: 100%; object-fit: cover; }
+.archive figcaption {
+  position: absolute; inset: auto 0 0 0; padding: 26px 12px 10px;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.82)); font-size: 0.82rem; color: #fff;
+}
+.archive figcaption b { font-family: var(--font-mono); font-weight: 400; color: var(--accent-text); margin-right: 8px; }
+.videos { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 22px; }
+@media (max-width: 860px) { .archive { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 600px) { .archive { grid-template-columns: 1fr; } }
+
+/* ---------- sponsor tabs ---------- */
+.tablist { display: flex; gap: 6px; border-bottom: 1px solid var(--line); margin: 26px 0 28px; flex-wrap: wrap; }
+.tablist button {
+  font: inherit; font-family: var(--font-mono); font-size: 0.8rem; letter-spacing: 0.12em; text-transform: uppercase;
+  background: none; border: 0; color: var(--muted); padding: 12px 16px; cursor: pointer;
+  box-shadow: inset 0 -2px 0 transparent; transition: color .15s, box-shadow .15s;
+}
+.tablist button:hover { color: var(--bone); }
+.tablist button[aria-selected="true"] { color: var(--bone); box-shadow: inset 0 -2px 0 var(--accent); }
+.tablist button:focus-visible { outline: 2px solid var(--accent-text); outline-offset: 2px; }
+.tabpanel[hidden] { display: none; }
+.tabpanel h3.panel-title { margin-bottom: 18px; }
+.no-js-tabs .tablist { display: none; }
+
+.past { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+.past > div { background: var(--panel); border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; }
+.past .who { font-family: var(--font-display); font-weight: 600; color: var(--bone); font-size: 1.08rem; }
+.past .when { font-family: var(--font-mono); font-size: 0.74rem; letter-spacing: 0.1em; color: var(--accent-text); margin-top: 6px; }
+.past .src { color: var(--muted); font-size: 0.86rem; margin-top: 8px; }
+.past-photo { margin-top: 24px; display: grid; grid-template-columns: 1.2fr 1fr; gap: 24px; align-items: center; }
+.past-photo img { border-radius: var(--radius); width: 100%; aspect-ratio: 16 / 10; object-fit: cover; }
+@media (max-width: 860px) { .past { grid-template-columns: 1fr 1fr; } .past-photo { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .past { grid-template-columns: 1fr; } }
+@media (max-width: 600px) { .tablist button { padding: 12px 10px; font-size: 0.72rem; letter-spacing: 0.06em; } }
+.logos.two { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 600px) { .logos.two { grid-template-columns: 1fr; } }

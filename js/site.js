@@ -264,3 +264,32 @@
     update();
   }
 })();
+
+/* ---------- tabs ----------
+   <div data-tabs> with a .tablist of buttons (aria-controls -> panel id).
+   Without JavaScript both panels simply show one after the other. */
+(function () {
+  document.querySelectorAll("[data-tabs]").forEach(function (box) {
+    var tabs = Array.prototype.slice.call(box.querySelectorAll('[role="tab"]'));
+    var select = function (tab, focus) {
+      tabs.forEach(function (t) {
+        var on = t === tab;
+        t.setAttribute("aria-selected", on ? "true" : "false");
+        t.tabIndex = on ? 0 : -1;
+        document.getElementById(t.getAttribute("aria-controls")).hidden = !on;
+      });
+      if (focus) tab.focus();
+    };
+    box.classList.remove("no-js-tabs");
+    tabs.forEach(function (tab, i) {
+      tab.addEventListener("click", function () { select(tab); });
+      tab.addEventListener("keydown", function (e) {
+        var d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+        if (!d) return;
+        e.preventDefault();
+        select(tabs[(i + d + tabs.length) % tabs.length], true);
+      });
+    });
+    select(tabs[0]);
+  });
+})();

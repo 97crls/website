@@ -6,9 +6,9 @@ Plain HTML + CSS + one small script. No build step, no dependencies.
 ## Pages
 
 - `index.html`: home (hero, stats, latest news, subteams, gallery, sponsors, call to action)
-- `about.html`: who we are, history timeline, 2026–27 student leadership, trophy case
+- `about.html`: who we are, history timeline (awards, Championship trips and team name changes), by-the-numbers stats, 2011–2014 photo archive, 2026–27 student leadership, trophy case
 - `robots.html`: 2026 robot, 2025 "Patrick Ewing", event results, season archive
-- `sponsors.html`: sponsor logos and the pitch for new sponsors
+- `sponsors.html`: Current / Previous sponsors tabs and the pitch for new sponsors (the same tabs are on the home page)
 - `join.html`: subteams, season calendar, how to join, FAQ, mentors and families
 
 `css/style.css` is the whole design system. `js/site.js` runs the mobile menu, the smooth
@@ -17,6 +17,9 @@ native scrolling on touch) and the home page animations. Add `data-reveal` (fade
 `data-wipe` (image wipes open) to any element to animate it in on scroll, with an optional
 `style="--d:.2s"` delay. Visitors with reduced motion turned on get no animation.
 Photos are in `assets/photos/` (resized to 1600px), and sponsor logos are in `assets/logos/`.
+`assets/photos/archive/` holds stills from Andrew Harlan's 2011–2014 season videos
+(youtube.com/channel/UClnBAD8cSHZ_65ECbNgTxQQ). Tabs: wrap them in `[data-tabs]` with
+`role="tab"` buttons whose `aria-controls` point at the panels; `js/site.js` does the rest.
 
 ## Preview
 
@@ -38,7 +41,9 @@ so link previews show the photo.
   archive, and a row in the `about.html` timeline if the team won an award.
 - Leadership: edit the `.people` cards in `about.html`.
 - Award count on the home page stats bar: update it when the team wins something.
-- Results come from https://frc-events.firstinspires.org/team/97
+- Results come from https://frc-events.firstinspires.org/team/97 and https://www.thebluealliance.com/team/97/history.
+  Team names, lifetime record and playoff stats come from https://www.brennanbibic.com/team/97.
+- Previous sponsors: 2008 from https://web.mit.edu/first/www/, 2011–2014 from logos visible in the season videos.
 
 ## The robot build animation (home page)
 
